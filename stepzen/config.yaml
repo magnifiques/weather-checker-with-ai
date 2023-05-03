@@ -1,0 +1,4 @@
+configurationset:
+  - configuration:
+      name: curl_import_config
+      authentication_8266407ed4: sikhio::stepzen.io+1000::18d7095db7cd5c045db866acd547e7bbca875f7aa12d5bb554c3243dc8149f45
