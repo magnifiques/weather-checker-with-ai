@@ -3,11 +3,17 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const { query } = await request.json();
+    console.log(query);
+    console.log(
+      `${process.env.NEXT_PUBLIC_LATLONG_API_URL}?q=${query}&appid=${process.env.NEXT_PUBLIC_LATLONG_API_KEY}`
+    );
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_LATLONG_API_URL}?q=${query}&appid=${process.env.NEXT_PUBLIC_LATLONG_API_KEY}`
     );
 
     const data = await response.json();
+
+    console.log(data);
 
     if (data.length === 0)
       return NextResponse.json({
@@ -29,5 +35,4 @@ export async function POST(request: Request) {
       status: 500,
     });
   }
-  // http://api.openweathermap.org/geo/1.0/direct?q=asasffff&appid=67202518d2f878ce64d75c101cb8d578
 }
