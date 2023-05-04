@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
     if (data.length === 0)
       return NextResponse.json({
-        contents: [],
+        responseData: [],
       });
 
     const contents = {
@@ -21,11 +21,12 @@ export async function POST(request: Request) {
     };
 
     return NextResponse.json({
-      contents,
+      responseData: [contents],
     });
   } catch (error: any) {
     return NextResponse.json({
-      error: error.message,
+      error: error,
+      status: 500,
     });
   }
   // http://api.openweathermap.org/geo/1.0/direct?q=asasffff&appid=67202518d2f878ce64d75c101cb8d578

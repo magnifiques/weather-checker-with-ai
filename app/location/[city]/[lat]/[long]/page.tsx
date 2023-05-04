@@ -38,19 +38,19 @@ async function page({ params: { city, lat, long } }: props) {
 
   const basePath = getBasePath();
 
-  // const response = await fetch(`${basePath}/api/fetchWeatherSummary`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     weatherData: dataToSend,
-  //   }),
-  // });
+  const response = await fetch(`${basePath}/api/fetchWeatherSummary`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      weatherData: dataToSend,
+    }),
+  });
 
-  // const GPTData = await response.json();
+  const GPTData = await response.json();
 
-  // const { content } = GPTData;
+  const { content } = GPTData;
   return (
     <div className="flex flex-col min-h-screen md:flex-row">
       <Information city={city} results={results} />
@@ -67,7 +67,7 @@ async function page({ params: { city, lat, long } }: props) {
           </div>
 
           <div className="m-2 mb-10">
-            <CalloutCard message="GPT STuff" />
+            <CalloutCard message={content} />
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 m-2">

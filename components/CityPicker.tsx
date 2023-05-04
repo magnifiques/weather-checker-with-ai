@@ -7,6 +7,7 @@ import { Button, TextInput } from "@tremor/react";
 import { useRouter } from "next/navigation";
 import getBasePath from "@/helpers/getBasePath";
 import ReactLoading from "react-loading";
+import toast, { Toaster } from "react-hot-toast";
 
 type countryOption = {
   value: {
@@ -80,33 +81,57 @@ function CityPicker() {
   const handleSubmit = async () => {
     setLoading(true);
     const basePath = getBasePath();
-    // const response = await fetch(`${basePath}/api/fetchLongAndLat`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     query: city?.trim(),
-    //   }),
-    // });
+    try {
+      const response = await fetch(`${basePath}/api/fetchLongAndLat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: city?.trim(),
+        }),
+      });
 
-    // const { contents } = await response.json();
+      const { responseData } = await response.json();
 
-    // console.log(contents);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+      if (responseData.length > 0) {
+        const [contents] = responseData;
+
+        router.push(
+          `/location/${contents.city}/${contents.lat}/${contents.long}`
+        );
+      } else {
+        toast("Invalid Input!", {
+          duration: 2000,
+          style: {
+            background: "red",
+            color: "white",
+            fontWeight: "bolder",
+            fontSize: "20px",
+            padding: "20px",
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast("Something went wrong!", {
+        duration: 4000,
+        style: {
+          background: "red",
+          color: "white",
+          fontWeight: "bolder",
+          fontSize: "20px",
+          padding: "20px",
+        },
+      });
+    }
+    setLoading(false);
     setCity("");
-    // if (contents) {
-    //   router.push(
-    //     `/location/${contents.city}/${contents.lat}/${contents.long}`
-    //   );
-    // } else {
-    // }
   };
 
   return (
     <div className="space-y-4">
+      <Toaster position="top-center" />
       <div className="space-y-2">
         {/* <div className="flex items-center space-x-2 ">
           <GlobeIcon className="w-5 h-5 text-white" />
@@ -131,7 +156,7 @@ function CityPicker() {
                 value={city}
                 onChange={(e) => setCity(e.target?.value)}
               />
-              <Button color="fuchsia" disabled={!city} onClick={handleSubmit}>
+              <Button color="green" disabled={!city} onClick={handleSubmit}>
                 Check The Weather!
               </Button>
             </>

@@ -7,9 +7,12 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-br p-10 from-[#A653AA] to-[#4112EB] flex flex-col justify-center items-center">
       <Card className="max-w-3xl mx-auto">
         <Title className="text-6xl text-center font-bold mb-10">
-          What&apos;s the weather?
+          How&apos;s the weather?
         </Title>
-        <Subtitle className="text-2xl text-center">
+        <Subtitle className="text-2xl text-center mb-5">
+          Find out the weather forecast of your desired city!
+        </Subtitle>
+        <Subtitle className="text-xl text-center">
           Powered By NextJS, GPT and more!
         </Subtitle>
 
