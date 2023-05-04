@@ -38,18 +38,15 @@ async function page({ params: { city, lat, long } }: props) {
 
   const basePath = getBasePath();
 
-  const response = await fetch(
-    `https://howstheweatherup.netlify.app/api/fetchWeatherSummary`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        weatherData: dataToSend,
-      }),
-    }
-  );
+  const response = await fetch(`${basePath}/api/fetchWeatherSummary`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      weatherData: dataToSend,
+    }),
+  });
 
   const GPTData = await response.json();
 
