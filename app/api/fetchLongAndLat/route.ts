@@ -3,10 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const { query } = await request.json();
-    console.log(query);
-    console.log(
-      `${process.env.NEXT_PUBLIC_LATLONG_API_URL}?q=${query}&appid=${process.env.NEXT_PUBLIC_LATLONG_API_KEY}`
-    );
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_LATLONG_API_URL}?q=${query}&appid=${process.env.NEXT_PUBLIC_LATLONG_API_KEY}`
     );

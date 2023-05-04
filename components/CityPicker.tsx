@@ -5,7 +5,6 @@ import Select, { createFilter } from "react-select";
 import { GlobeIcon, SearchIcon } from "@heroicons/react/solid";
 import { Button, TextInput } from "@tremor/react";
 import { useRouter } from "next/navigation";
-import getBasePath from "@/helpers/getBasePath";
 import ReactLoading from "react-loading";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -80,9 +79,8 @@ function CityPicker() {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const basePath = getBasePath();
     try {
-      const response = await fetch(`${basePath}/api/fetchLongAndLat`, {
+      const response = await fetch(`/api/fetchLongAndLat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
