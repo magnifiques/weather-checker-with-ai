@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import openAI from "@/openai";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request, res: any) {
   try {
     const { weatherData } = await request.json();
 
@@ -26,11 +26,13 @@ export async function POST(request: NextRequest) {
 
     const { data } = response;
 
-    return NextResponse.json({
+    return res.status(200).json({
       content: data.choices[0].message?.content,
     });
   } catch (error: any) {
     console.log(error.message);
-    return;
+    return res.status(500).json({
+      error: error.message,
+    });
   }
 }

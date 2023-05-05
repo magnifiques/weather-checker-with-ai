@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request, res: any) {
   try {
     const { query } = await request.json();
 
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     console.log(data);
 
     if (data.length === 0)
-      return NextResponse.json({
+      return res.status(404).json({
         responseData: [],
       });
 
@@ -23,11 +23,11 @@ export async function POST(request: NextRequest) {
       long: data[0].lon,
     };
 
-    return NextResponse.json({
+    return res.status(200).json({
       responseData: [contents],
     });
   } catch (error: any) {
-    return NextResponse.json({
+    return res.status(500).json({
       error: error,
       status: 500,
     });
