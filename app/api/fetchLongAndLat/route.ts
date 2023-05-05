@@ -10,18 +10,16 @@ export async function POST(request: Request, res: any) {
 
     const data = await response.json();
 
-    console.log(data);
-
-    if (data.length === 0)
-      return res.status(404).json({
-        responseData: [],
-      });
-
-    const contents = {
-      city: data[0].name,
-      lat: data[0].lat,
-      long: data[0].lon,
-    };
+    let contents;
+    if (data.length === 0) {
+      contents = [];
+    } else {
+      contents = {
+        city: data[0].name,
+        lat: data[0].lat,
+        long: data[0].lon,
+      };
+    }
 
     return res.status(200).json({
       responseData: [contents],
