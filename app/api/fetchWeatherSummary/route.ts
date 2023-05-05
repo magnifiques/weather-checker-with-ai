@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import openAI from "@/openai";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const { weatherData } = await request.json();
 
